@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+	<body style='background-color:lightblue'>	
+	<style>	
+	.container {
+  max-width: 750px;
+}
+h1 {
+  font-family: 'Rock Salt', cursive;
+}
+p {
+	font-family: 'Verdana, Geneva, sans-serif';
+	font-size: 32px;
+	margin: 25px;
+}	
+	</style>		
+<p>Paste the content of Clipboard here: <textarea id="editableTxt"></textarea></p>
+<br><br>
+ <div id='button'>
+<button onclick="oddTrivia()">Today's Quote</button>
+</div>   
+<br><br>
+     <button onclick="myclick()">To view LocalStorage:</button> 
+<br><br>
+     <button onclick="mytranslate()">Translate</button>      
+  <p id='ptrivia'></p> 
+<br>
+  <p id='ptrivia2'></p>  
+	<br>
+  <p id='ptrivia3'></p> 
+	<script language="javascript" type="text/javascript">
+
+let count = 0; 
+
+function handlePaste (e) {
+    var clipboardData, pastedData;
+    clipboardData = e.clipboardData || window.clipboardData;
+    pastedData = clipboardData.getData('Text');
+    // Do whatever with pasteddata
+    alert(pastedData);
+	/*    localStorage.setItem("test", JSON.stringify(pastedData));  If we have CSV file */
+    localStorage.setItem("test", (pastedData));       
+}
+
+	document.getElementById('editableTxt').addEventListener('paste', handlePaste);
+	var add = (function () {
+	  var counter = 0;
+	  return function () {return counter += 1;}
+})();
+
+function oddTrivia() {
+	myArray = window.localStorage.getItem('test');
+	myX = myArray.split("\n");
+	var randomTrivia = myX[add()-1]  
+	document.getElementById('ptrivia').innerHTML = randomTrivia;
+	console.log(randomTrivia) 
+	   if ( randomTrivia == undefined) { 
+   	alert('No more records');
+  } 
+}
+function myclick() {
+		for (var i = 0; i < myX.length; i++) {
+		document.getElementById('ptrivia2').innerHTML = 'Local Storage test content: '+myArray;
+		console.clear();
+		console.log(myX[i])
+		howmany = i+1		
+}}
+
+function mytranslate() {
+		for (var i = 0; i < myX.length; i++) {
+		document.getElementById('ptrivia3').innerHTML = 'Traslated using key Cyril :-( ';
+		console.clear();
+		console.log(myX.length)
+		howmany = i+1		
+}}
+
+</script>
+
+
+</body>
+<br><br><br><br><br><br><br><br>
+<p>F12 Application, Local Storage, key is test</p>
+</html>
+<!-- 
+for (var i = 0; i < randomTrivia.length; i++) 
+document.getElementById('ptrivia3').innerHTML = 'Traslated using key Cyril :-( ';
+randomTrivia TOM  should be Translated as  ÆÄî
+TOM is written with Cyrillic Alphabet
+AaБбBвГгДдEeЖжЗзИиЙйKĸЛлMмHнOoΠпPpCcTтУyФфXxЦцЧчШшЩщЪъЬьЮюЯя
+ÇáüíéóâúäñàÑåªçºê¿ë¬è¬ï½î¼ì¡Ä«Å»ÉaæßÆGôpöSòsûµùtÿFÖT1O283eƒn
+index positions 36 28 24 should be matched with the same index positins from line2
+-->
